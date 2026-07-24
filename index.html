@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar Savings Calculator 2026 — What Solar Actually Saves You Now</title>
+<meta name="description" content="Free 2026 solar savings calculator. The federal 30% tax credit ended Dec 31, 2025 — see your real payback and 25-year savings with the incentives that still exist in your state. No address. No email. Instant.">
+<link rel="canonical" href="https://exelfinancenewera-design.github.io/solar-preview/"><!-- REPLACE-ON-DOMAIN -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='34' fill='%23F6A81C'/><g stroke='%23F6A81C' stroke-width='8' stroke-linecap='round'><line x1='50' y1='2' x2='50' y2='14'/><line x1='50' y1='86' x2='50' y2='98'/><line x1='2' y1='50' x2='14' y2='50'/><line x1='86' y1='50' x2='98' y2='50'/></g></svg>">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3151473770988665" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","@id":"#app","name":"Solar Savings Calculator 2026","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Neutral solar savings and payback calculator using post-2025 incentive rules: no federal residential credit, state incentives itemized, sourced electricity rates."},
+{"@type":"Organization","@id":"#org","name":"SunMath","description":"Independent solar savings math. Not an installer. We sell no leads."},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is the 30% federal solar tax credit still available in 2026?","acceptedAnswer":{"@type":"Answer","text":"No. Per the IRS, the Residential Clean Energy Credit (Section 25D) is not available for any property placed in service after December 31, 2025. Systems you buy and install in 2026 do not get the 30% federal credit. Leased or PPA systems may still benefit indirectly through the provider's business credit — ask the provider what they pass through."}},
+{"@type":"Question","name":"What solar incentives still exist in 2026?","acceptedAnswer":{"@type":"Answer","text":"State-level incentives survive: for example, New York offers a 25% state tax credit up to $5,000 (tax.ny.gov). Many states offer property-tax or sales-tax exemptions, utility rebates, or net-metering credits. This calculator itemizes what applies to your state, with official sources."}},
+{"@type":"Question","name":"Is solar still worth it without the federal tax credit?","acceptedAnswer":{"@type":"Answer","text":"It depends on your electricity rate and state. At May-2026 residential rates (EIA), high-rate states like California (33.25¢/kWh) can still pay back in well under 10 years; low-rate states take longer. That is exactly what this calculator computes for your numbers — honestly, with no dead credits inflating the result."}},
+{"@type":"Question","name":"How is the payback period calculated?","acceptedAnswer":{"@type":"Answer","text":"Net system cost (gross cost minus verified state incentives) divided by first-year bill savings, computed year-by-year with 0.5%/yr panel degradation and savings capped at your usage. Assumptions are shown openly and editable."}},
+{"@type":"Question","name":"Why does this calculator not ask for my address or email?","acceptedAnswer":{"@type":"Answer","text":"Because it is not a lead form. Installer-run calculators require an address so they can sell your contact information to sales teams. This tool computes your numbers instantly in your browser and shows its sources."}},
+{"@type":"Question","name":"What does solar cost per watt in 2026?","acceptedAnswer":{"@type":"Answer","text":"About $2.60 per watt on average before incentives, per EnergySage marketplace data updated July 17, 2026 — with state averages ranging from roughly $2.15 (Florida) to $3.46 (Hawaii). The calculator pre-fills your state's average and lets you edit it."}}]}]}
+</script>
+<style>
+:root{
+  --sky:#0B76B8; --sky-bright:#0EA5E9; --sky-pale:#EAF6FD;
+  --gold:#F6A81C; --gold-deep:#E08E00;
+  --char:#20242B; --char-soft:#4A5160;
+  --white:#FFFFFF; --line:#DDE9F2;
+  --radius:18px;
+  --font-d:'Outfit',sans-serif; --font-b:'IBM Plex Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+[id]{scroll-margin-top:78px}
+body{font-family:var(--font-b);color:var(--char);background:var(--white);line-height:1.6}
+h1,h2,h3{font-family:var(--font-d);line-height:1.15}
+a{color:var(--sky)}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--font-d);font-weight:800;font-size:20px;color:var(--char);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand .sun{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFD268,var(--gold));box-shadow:0 0 12px rgba(246,168,28,.6)}
+nav .links{display:flex;gap:22px;font-size:14px;font-weight:500}
+nav .links a{color:var(--char-soft);text-decoration:none}
+nav .links a:hover{color:var(--sky)}
+/* HERO */
+header{position:relative;min-height:78vh;display:flex;align-items:center;justify-content:flex-start;overflow:hidden}
+header img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+header .veil{position:absolute;inset:0;background:linear-gradient(100deg,rgba(8,45,72,.82) 0%,rgba(11,118,184,.55) 45%,rgba(14,165,233,.12) 100%)}
+.hero-in{position:relative;z-index:2;padding:120px 5vw 70px;max-width:760px}
+.kicker{display:inline-block;background:var(--gold);color:#3A2A00;font-family:var(--font-d);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-radius:999px;margin-bottom:18px}
+h1{font-size:clamp(34px,5.2vw,58px);font-weight:800;color:#fff;text-shadow:0 2px 24px rgba(0,30,50,.45)}
+h1 .gold{color:var(--gold)}
+.hero-sub{color:#EAF6FD;font-size:clamp(16px,1.6vw,19px);margin:16px 0 28px;max-width:560px;text-shadow:0 1px 12px rgba(0,30,50,.5)}
+.cta{display:inline-block;background:var(--gold);color:#2A1E00;font-family:var(--font-d);font-weight:700;font-size:17px;padding:15px 34px;border-radius:12px;text-decoration:none;box-shadow:0 8px 28px rgba(246,168,28,.45);transition:transform .15s}
+.cta:hover{transform:translateY(-2px)}
+/* STAT STRIP */
+.stats{position:relative;z-index:3;margin:-46px 5vw 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:0 12px 34px rgba(11,60,95,.10)}
+.stat b{font-family:var(--font-d);font-size:24px;color:var(--sky);display:block}
+.stat span{font-size:12.5px;color:var(--char-soft)}
+/* TRUTH BAND */
+.truth{margin:38px 5vw 0;background:linear-gradient(95deg,#FFF7E6,#FFEFCB);border:1.5px solid var(--gold);border-radius:var(--radius);padding:18px 24px;display:flex;gap:14px;align-items:flex-start}
+.truth .ic{font-size:22px;line-height:1.2}
+.truth p{font-size:14.5px;color:#4A3A10}
+.truth b{color:#2A1E00}
+/* SECTIONS */
+section{padding:56px 5vw}
+h2{font-size:clamp(24px,3vw,34px);font-weight:800;margin-bottom:8px}
+.sec-sub{color:var(--char-soft);max-width:640px;margin-bottom:30px;font-size:15.5px}
+/* CALC */
+.calc-wrap{display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:26px;align-items:start}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.panel.inputs{background:var(--sky-pale);border-color:#CBE7F8}
+.field{margin-bottom:16px}
+.field label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--char);margin-bottom:6px}
+.field label .val{color:var(--sky);font-family:var(--font-d)}
+.field select,.field input[type=number]{width:100%;padding:11px 12px;border:1.5px solid #BFD9EA;border-radius:10px;font-size:15px;font-family:var(--font-b);background:#fff;color:var(--char)}
+.field input[type=range]{width:100%;accent-color:var(--sky)}
+.field .note{font-size:11.5px;color:var(--char-soft);margin-top:4px}
+.autosize{font-size:12px;background:none;border:none;color:var(--sky);cursor:pointer;text-decoration:underline;font-family:var(--font-b)}
+/* RESULTS */
+.headline{background:linear-gradient(120deg,var(--sky) 0%,#0A5C90 100%);border-radius:var(--radius);color:#fff;padding:26px 28px;margin-bottom:18px}
+.headline .lbl{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#BFE3F8}
+.headline .big{font-family:var(--font-d);font-weight:800;font-size:clamp(34px,4.2vw,50px);color:var(--gold);line-height:1.05}
+.headline .sub{font-size:15px;color:#EAF6FD;margin-top:6px}
+.headline .sub b{color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.chart-card h3{font-size:15px;margin-bottom:10px;color:var(--char)}
+.chart-card svg{width:100%;height:auto;display:block}
+.stack{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:18px}
+.stack h3{font-size:16px;margin-bottom:12px}
+.stack table{width:100%;border-collapse:collapse;font-size:14px}
+.stack td{padding:8px 4px;border-bottom:1px solid var(--sky-pale)}
+.stack td:last-child{text-align:right;font-family:var(--font-d);font-weight:700}
+.stack .dead td{color:#9AA3B2;text-decoration:line-through}
+.stack .dead td em{font-style:normal;font-size:11px;text-decoration:none;display:inline-block;background:#FDE8E8;color:#B42318;padding:1px 8px;border-radius:999px;margin-left:6px}
+.stack .net td{border-top:2px solid var(--char);border-bottom:none;font-size:16px}
+.src{font-size:11.5px;color:var(--char-soft);margin-top:10px}
+/* ACCORDIONS */
+details{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:#fff}
+details summary{cursor:pointer;padding:14px 18px;font-weight:600;font-size:15px;font-family:var(--font-d);color:var(--char)}
+details .body{padding:0 18px 16px;font-size:14.5px;color:var(--char-soft)}
+/* OFFER */
+.offer-band{background:var(--char);border-radius:var(--radius);color:#fff;padding:40px;display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:center}
+.offer-band h2{color:#fff}
+.offer-band .price{font-family:var(--font-d);font-size:44px;font-weight:800;color:var(--gold)}
+.offer-band ul{margin:14px 0 0 18px;font-size:14.5px;color:#C9CFDA}
+.offer-band .buy{display:inline-block;background:var(--gold);color:#2A1E00;font-family:var(--font-d);font-weight:700;padding:14px 30px;border-radius:12px;text-decoration:none;font-size:16px;margin-top:16px}
+/* CAPTURE */
+.capture{background:var(--sky-pale);border:1px solid #CBE7F8;border-radius:var(--radius);padding:26px;margin-top:22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.capture p{font-size:14.5px;max-width:460px}
+.capture form{display:flex;gap:10px;flex-wrap:wrap}
+.capture input[type=email]{padding:12px 14px;border:1.5px solid #BFD9EA;border-radius:10px;font-size:14px;min-width:240px}
+.capture button{background:var(--sky);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-family:var(--font-d);font-weight:700;font-size:14px;cursor:pointer}
+/* ADS */
+.ad{margin:34px 5vw;border:1px dashed #C9D8E4;border-radius:12px;min-height:90px;display:flex;align-items:center;justify-content:center;color:#9AA3B2;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+/* FOOTER */
+footer{background:var(--char);color:#C9CFDA;padding:46px 5vw;font-size:13.5px}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px;margin-bottom:26px}
+footer a{color:#8FC7EA;text-decoration:none}
+footer .fine{border-top:1px solid #3A4150;padding-top:18px;font-size:12px;color:#8A93A3}
+.affbox{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:12px;font-size:14px}
+@media(max-width:900px){
+  .calc-wrap,.grid2,.offer-band{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr;margin-top:-30px}
+  nav .links{display:none}
+  header{min-height:64vh}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#top"><span class="sun"></span>SunMath</a>
+  <div class="links">
+    <a href="#calc">Calculator</a><a href="#stack">Your incentive stack</a><a href="#faq">FAQ</a><a href="#methodology">Methodology</a>
+  </div>
+</nav>
+
+<header id="top">
+  <img class="bg" src="hero.jpg" alt="Sunlit home with rooftop solar panels" fetchpriority="high">
+  <div class="veil"></div>
+  <div class="hero-in">
+    <span class="kicker">2026 rules · no dead credits</span>
+    <h1>What solar <span class="gold">actually saves you</span> in 2026</h1>
+    <p class="hero-sub">The 30% federal credit is gone. Most calculators haven't noticed. See your real payback and 25-year savings — no address, no email, instantly.</p>
+    <a class="cta" href="#calc" id="heroCta">Run my numbers →</a>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat"><b>$2.60/W</b><span>Average 2026 installed cost before incentives — EnergySage marketplace data, updated Jul 17, 2026</span></div>
+  <div class="stat"><b>18.44¢/kWh</b><span>Average U.S. residential electricity price, May 2026 — EIA Table 5.6.A (California: 33.25¢)</span></div>
+  <div class="stat"><b>Dec 31, 2025</b><span>The federal 30% Residential Clean Energy Credit ended for systems placed in service after this date — IRS</span></div>
+</div>
+
+<div class="truth">
+  <span class="ic">☀️</span>
+  <p><b>The 2026 truth most solar calculators hide:</b> the IRS confirms the 30% federal Residential Clean Energy Credit "is not available for any property placed in service after December 31, 2025." Any savings estimate that still includes it is inflating your numbers by thousands. This calculator uses only the incentives that still exist — itemized, with official sources. <span style="font-size:12px">(Source: <a href="https://www.irs.gov/credits-deductions/residential-clean-energy-credit" rel="noopener" target="_blank">irs.gov — Residential Clean Energy Credit</a>)</span></p>
+</div>
+
+<section id="calc">
+  <h2>Your solar savings, computed honestly</h2>
+  <p class="sec-sub">Six inputs. Results update live. Every default is sourced and editable — this is your math, not an installer's pitch.</p>
+  <div class="calc-wrap">
+    <div class="panel inputs">
+      <div class="field">
+        <label for="state">Your state</label>
+        <select id="state"></select>
+        <div class="note" id="stateNote"></div>
+      </div>
+      <div class="field">
+        <label for="bill">Average monthly electric bill <span class="val" id="billVal">$200</span></label>
+        <input type="range" id="bill" min="50" max="700" step="10" value="200">
+      </div>
+      <div class="field">
+        <label for="kw">System size (kW) <span class="val" id="kwVal">auto</span></label>
+        <input type="range" id="kw" min="2" max="16" step="0.1" value="6">
+        <div class="note">Auto-sized to cover your usage. <button class="autosize" id="autosizeBtn" type="button">Reset to auto</button></div>
+      </div>
+      <div class="field">
+        <label for="cpw">Installed cost ($/W)</label>
+        <input type="number" id="cpw" min="1" max="6" step="0.01" value="2.60">
+        <div class="note" id="cpwNote">State average — EnergySage marketplace, Jul 2026. Edit to match your quote.</div>
+      </div>
+      <div class="field">
+        <label for="rate">Electricity rate (¢/kWh)</label>
+        <input type="number" id="rate" min="5" max="60" step="0.01" value="18.44">
+        <div class="note">Your state's May-2026 residential average — EIA. Edit to match your bill.</div>
+      </div>
+      <div class="field">
+        <label for="incentive">State &amp; utility incentives ($)</label>
+        <input type="number" id="incentive" min="0" max="30000" step="50" value="0">
+        <div class="note" id="incNote">Verified state incentive auto-filled where one exists.</div>
+      </div>
+      <button class="cta" id="calcBtn" type="button" style="width:100%;text-align:center;box-shadow:none;background:var(--sky);color:#fff">Recalculate</button>
+    </div>
+
+    <div id="resultsPanel">
+      <div class="headline">
+        <div class="lbl">Estimated 25-year net savings</div>
+        <div class="big" id="maxPrice">$0</div>
+        <div class="sub" id="verdictText">Payback in <b>—</b> · system pays for itself, then keeps earning</div>
+      </div>
+      <div class="grid2">
+        <div class="chart-card">
+          <h3>When your system pays for itself</h3>
+          <svg id="paybackChart" viewBox="0 0 480 260" role="img" aria-label="Cumulative savings vs system cost over 25 years"></svg>
+        </div>
+        <div class="chart-card">
+          <h3>Monthly bill: before vs after</h3>
+          <svg id="billChart" viewBox="0 0 480 260" role="img" aria-label="Monthly electric bill before and after solar"></svg>
+        </div>
+      </div>
+      <div class="stack" id="stack">
+        <h3>Your 2026 incentive stack — itemized</h3>
+        <table id="stackTable"></table>
+        <p class="src" id="stackSrc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ad" aria-hidden="true"><!-- adsbygoogle post-result -->advertisement</div>
+
+<section id="capture-sec" style="padding-top:0">
+  <div class="capture">
+    <p><b>Want your numbers as a keepsake?</b> We'll email your savings summary — plus the 3 questions that expose an overpriced solar quote. No spam, unsubscribe anytime.</p>
+    <form id="captureForm">
+      <input type="email" id="emailCapture" placeholder="you@email.com" required>
+      <button id="captureBtn" type="submit">Email my results</button>
+    </form>
+  </div>
+  <div class="affbox" id="affiliateBox">
+    <b>Compare real quotes:</b> <a id="affiliateLink" href="#" rel="sponsored noopener" target="_blank">Get competing installer quotes</a> <span style="font-size:11px;color:var(--char-soft)">(disclosed partner link)</span>
+  </div>
+</section>
+
+<section id="offer" style="padding-top:10px">
+  <div class="offer-band">
+    <div>
+      <h2>Don't overpay the installer</h2>
+      <p style="color:#C9CFDA;font-size:15px;margin-top:8px">Installers know the federal credit died — some are quietly keeping prices where they were. The <b style="color:#fff">Solar Buyer's Shield</b> is the 40-minute defense kit: what $/W you should actually pay in your state, the 7 contract clauses that cost buyers thousands, and the exact walk-away script.</p>
+      <ul>
+        <li>State-by-state fair-price benchmarks (sourced)</li>
+        <li>The 7 contract red flags — in plain English</li>
+        <li>Quote-comparison worksheet + negotiation scripts</li>
+      </ul>
+    </div>
+    <div style="text-align:center">
+      <div class="price">$27</div>
+      <div style="font-size:13px;color:#C9CFDA">One-time. Instant download. 30-day refund.</div>
+      <a class="buy" id="tripwireLink" href="#">Get the Shield →</a>
+      <div id="upsellNote" style="font-size:12px;color:#8A93A3;margin-top:10px">Includes upgrade path to the full <a id="upsellLink" href="#" style="color:#8FC7EA">Solar Decision System ($97)</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="ad" aria-hidden="true"><!-- adsbygoogle after-faq -->advertisement</div>
+
+<section id="faq">
+  <h2>Solar in 2026 — straight answers</h2>
+  <p class="sec-sub">Sourced, current, and free of installer spin.</p>
+  <details open><summary>Is the 30% federal solar tax credit still available in 2026?</summary><div class="body">No. Per the IRS, the Residential Clean Energy Credit (§25D) "is not available for any property placed in service after December 31, 2025." Systems bought and installed in 2026 do not receive the 30% federal credit. Leased/PPA systems may still benefit indirectly through the provider's business credit — ask what they pass through (EnergySage notes competitive providers should). <a href="https://www.irs.gov/credits-deductions/residential-clean-energy-credit" target="_blank" rel="noopener">IRS source</a></div></details>
+  <details><summary>What solar incentives still exist in 2026?</summary><div class="body">State-level programs survive. Example: New York's solar equipment credit is 25% of cost up to $5,000 (<a href="https://www.tax.ny.gov/pit/credits/solar_energy_system_equipment_credit.htm" target="_blank" rel="noopener">tax.ny.gov</a>). Many states offer property-tax or sales-tax exemptions, utility rebates, or net-metering bill credits. Select your state above — the calculator itemizes what we could verify, with official links.</div></details>
+  <details><summary>Is solar still worth it without the federal credit?</summary><div class="body">It depends mostly on your electricity rate. At May-2026 EIA rates, a California household paying 33.25¢/kWh can still see payback well under 10 years at 2026's ~$2.60/W average prices; a 13¢/kWh state takes far longer. That's exactly the honest math this page computes for your inputs.</div></details>
+  <details><summary>How accurate is the production estimate?</summary><div class="body">We use your state's average solar resource at latitude tilt (NLR — formerly NREL — Perez/SUNY dataset) with a conservative 0.80 performance ratio and 0.5%/yr panel degradation. Your roof's direction and shading will move the result; treat this as a well-sourced estimate, not a site survey.</div></details>
+  <details><summary>Why doesn't this calculator ask for my address or email?</summary><div class="body">Because it isn't a lead-capture form. Address-first calculators exist to sell your contact details to installer sales teams. This one runs entirely in your browser, instantly, and shows its sources.</div></details>
+  <details><summary>What about net metering?</summary><div class="body">To stay conservative we cap savings at your own usage — we assume no payment for exported surplus. If your utility credits exports at retail rate, your real savings may be higher; if you're on a reduced export rate (like California's NBT), sizing near 100% of usage — as the auto-size does — keeps this estimate representative.</div></details>
+</section>
+
+<section id="methodology" style="padding-top:0">
+  <h2>Methodology &amp; sources</h2>
+  <details><summary>The formula, in the open</summary><div class="body">
+    Annual production (kWh) = system kW × state solar resource at latitude tilt (kWh/m²/day, NLR/NREL Perez-SUNY dataset, state centroid) × 365 × 0.80 performance ratio.<br>
+    Year-1 savings = min(production, your usage) × your electricity rate. Production degrades 0.5%/yr.<br>
+    Gross cost = kW × 1,000 × $/W (EnergySage state marketplace averages, Jul 17 2026). Net cost = gross − verified state/utility incentives. <b>No federal credit is applied — the §25D credit ended Dec 31, 2025 (IRS).</b><br>
+    Payback = the year cumulative savings crosses net cost (interpolated). 25-yr net savings = 25-yr cumulative savings − net cost. Flat electricity rate assumed (conservative — rates rose ~6% year-over-year to May 2026 per EIA).
+  </div></details>
+  <details><summary>Data sources</summary><div class="body">
+    · Electricity rates: EIA Electric Power Monthly, Table 5.6.A (May 2026, residential, by state).<br>
+    · Installed cost per watt: EnergySage marketplace state averages, updated Jul 17, 2026.<br>
+    · Solar resource: NLR (formerly NREL) Solar Resource API, annual average at latitude tilt, state geographic centroid.<br>
+    · Federal credit status: IRS, Residential Clean Energy Credit page (read Jul 24, 2026).<br>
+    · State incentives: each shown with its official source link in the stack table. States without a link show $0 — check your state energy office and utility.
+  </div></details>
+  <details><summary id="disclosure">Disclosures</summary><div class="body">SunMath is an independent information tool, not an installer, lender, or tax advisor. Estimates are educational; confirm incentives with official sources and a tax professional. Some links on this page are disclosed partner or product links that may earn us a commission at no cost to you. We do not sell your data; the calculator works without any personal information.</div></details>
+</section>
+
+<div class="ad" aria-hidden="true"><!-- adsbygoogle footer-leaderboard -->advertisement</div>
+
+<footer>
+  <div class="cols">
+    <div>
+      <a class="brand" href="#top" style="color:#fff"><span class="sun"></span>SunMath</a>
+      <p style="margin-top:10px;max-width:340px">Honest solar math for 2026's new rules. No address required, no leads sold, every number sourced.</p>
+    </div>
+    <div>
+      <b style="color:#fff">Explore</b><br><br>
+      <a href="#calc">Calculator</a><br><a href="#faq">FAQ</a><br><a href="#methodology">Methodology</a>
+    </div>
+    <div>
+      <b style="color:#fff">Legal</b><br><br>
+      <a href="privacy.html">Privacy</a><br><a href="terms.html">Terms</a>
+    </div>
+  </div>
+  <div class="fine">© 2026 SunMath. Estimates only — not tax, legal, or investment advice. Federal credit status per IRS; state data per EIA, EnergySage, NLR and linked official sources.</div>
+</footer>
+
+<script>
+// ================= CONFIG — the ONLY block to edit when wiring the site live =================
+const CONFIG = {
+  espEndpoint: "",            // NEW MailerLite form for the SOLAR group — never reuse DPA's (segmentation law)
+  tripwireCheckoutUrl: "",    // $27 Solar Buyer's Shield (Gumroad) — KD creates product
+  upsellCheckoutUrl: "",      // $97 Solar Decision System (Gumroad)
+  affiliateUrl: "",           // solar-quote partner URL. Empty = hides box.
+  ga4Id: "G-RJ5SHMEZWN",      // shared GA4 property; segmented by site_variant
+  siteVariant: "solar-v1",
+  adsenseId: "ca-pub-3151473770988665"
+};
+// --- GA4 loader + event helper ---
+if (CONFIG.ga4Id) {
+  const s = document.createElement('script'); s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + CONFIG.ga4Id;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  gtag('js', new Date()); gtag('config', CONFIG.ga4Id, { site_variant: CONFIG.siteVariant });
+}
+const track = (name, params) => { if (window.gtag) gtag('event', name, Object.assign({ site_variant: CONFIG.siteVariant }, params || {})); };
+
+/* @DATA:STATES — generated by gen-embed.js from solar-states-base.json + solar-resource.json + incentives */
+const STATES = {"AL":{"name":"Alabama","rate":16.77,"cpw":3.06,"tilt":5.11},"AK":{"name":"Alaska","rate":28.23,"cpw":2.6,"tilt":3.38,"cpwNatl":true},"AZ":{"name":"Arizona","rate":15.23,"cpw":2.18,"tilt":6.58,"inc":{"pct":25,"cap":1000,"name":"AZ Credit for Solar Energy Devices (25%, max $1,000)","url":"https://www.azleg.gov/ars/43/01083.htm"}},"AR":{"name":"Arkansas","rate":14.36,"cpw":2.47,"tilt":4.93},"CA":{"name":"California","rate":33.25,"cpw":2.51,"tilt":5.95},"CO":{"name":"Colorado","rate":16.16,"cpw":2.65,"tilt":5.76},"CT":{"name":"Connecticut","rate":27.37,"cpw":2.67,"tilt":4.57},"DE":{"name":"Delaware","rate":19.38,"cpw":2.46,"tilt":4.85},"DC":{"name":"Washington, D.C.","rate":25.4,"cpw":2.91,"tilt":4.87},"FL":{"name":"Florida","rate":15.17,"cpw":2.15,"tilt":5.39},"GA":{"name":"Georgia","rate":15.84,"cpw":2.5,"tilt":5.26},"HI":{"name":"Hawaii","rate":52,"cpw":3.46,"tilt":6.67},"ID":{"name":"Idaho","rate":12.35,"cpw":3.01,"tilt":5.15},"IL":{"name":"Illinois","rate":23.85,"cpw":3,"tilt":4.69},"IN":{"name":"Indiana","rate":18.15,"cpw":2.79,"tilt":4.58},"IA":{"name":"Iowa","rate":14.14,"cpw":3.14,"tilt":4.68},"KS":{"name":"Kansas","rate":15.13,"cpw":2.72,"tilt":5.44},"KY":{"name":"Kentucky","rate":14.98,"cpw":2.58,"tilt":4.68},"LA":{"name":"Louisiana","rate":14.15,"cpw":2.52,"tilt":5.09},"ME":{"name":"Maine","rate":28.63,"cpw":2.93,"tilt":4.31},"MD":{"name":"Maryland","rate":21.77,"cpw":2.55,"tilt":4.84},"MA":{"name":"Massachusetts","rate":28.82,"cpw":2.92,"tilt":4.55},"MI":{"name":"Michigan","rate":22.01,"cpw":2.98,"tilt":4.27},"MN":{"name":"Minnesota","rate":16.95,"cpw":3.2,"tilt":4.51},"MS":{"name":"Mississippi","rate":16.16,"cpw":2.31,"tilt":5.09},"MO":{"name":"Missouri","rate":13.68,"cpw":2.49,"tilt":4.94},"MT":{"name":"Montana","rate":14.67,"cpw":2.68,"tilt":4.6},"NE":{"name":"Nebraska","rate":13.59,"cpw":2.6,"tilt":5.22,"cpwNatl":true},"NV":{"name":"Nevada","rate":13.6,"cpw":2.34,"tilt":5.98},"NH":{"name":"New Hampshire","rate":27.33,"cpw":3.05,"tilt":4.45},"NJ":{"name":"New Jersey","rate":23.27,"cpw":2.56,"tilt":4.67},"NM":{"name":"New Mexico","rate":14.12,"cpw":2.61,"tilt":6.4},"NY":{"name":"New York","rate":29.93,"cpw":2.76,"tilt":4.2,"inc":{"pct":25,"cap":5000,"name":"NY Solar Energy System Equipment Credit (25%, max $5,000)","url":"https://www.tax.ny.gov/pit/credits/solar_energy_system_equipment_credit.htm"}},"NC":{"name":"North Carolina","rate":15.09,"cpw":2.34,"tilt":5.12},"ND":{"name":"North Dakota","rate":13.61,"cpw":2.6,"tilt":4.52,"cpwNatl":true},"OH":{"name":"Ohio","rate":19.52,"cpw":2.66,"tilt":4.39},"OK":{"name":"Oklahoma","rate":13.38,"cpw":2.59,"tilt":5.36},"OR":{"name":"Oregon","rate":16.27,"cpw":2.65,"tilt":5.35},"PA":{"name":"Pennsylvania","rate":21.55,"cpw":2.63,"tilt":4.4},"RI":{"name":"Rhode Island","rate":29.46,"cpw":2.74,"tilt":4.63},"SC":{"name":"South Carolina","rate":16.18,"cpw":2.58,"tilt":5.23},"SD":{"name":"South Dakota","rate":15.73,"cpw":2.6,"tilt":5.01,"cpwNatl":true},"TN":{"name":"Tennessee","rate":14.47,"cpw":3.22,"tilt":4.82},"TX":{"name":"Texas","rate":16.44,"cpw":2.21,"tilt":5.65},"UT":{"name":"Utah","rate":12.96,"cpw":2.6,"tilt":5.62,"cpwNatl":true},"VT":{"name":"Vermont","rate":24.89,"cpw":2.82,"tilt":4.33},"VA":{"name":"Virginia","rate":17.61,"cpw":2.47,"tilt":5.02},"WA":{"name":"Washington","rate":14.95,"cpw":2.54,"tilt":4.85},"WV":{"name":"West Virginia","rate":16.8,"cpw":2.6,"tilt":4.48,"cpwNatl":true},"WI":{"name":"Wisconsin","rate":19.74,"cpw":3.11,"tilt":4.37},"WY":{"name":"Wyoming","rate":14.8,"cpw":2.6,"tilt":5.49,"cpwNatl":true}};
+/* @/DATA:STATES */
+
+// ================= ENGINE — must match verify-math.js EXACTLY =================
+const PR = 0.80, DEGR = 0.005, YEARS = 25;
+function solarCalc({ bill, rate, tilt, cpw, kw, incentive }) {
+  const usageYr = (bill / rate) * 12;
+  const autoKw = Math.round((usageYr / (tilt * 365 * PR)) * 10) / 10;
+  const sysKw = kw || autoKw;
+  const prodYr1 = sysKw * tilt * 365 * PR;
+  const gross = sysKw * 1000 * cpw;
+  const net = Math.max(0, gross - incentive);
+  const saveYr1 = Math.min(prodYr1, usageYr) * rate;
+  let cum = 0, payback = null, cumSeries = [];
+  for (let y = 1; y <= YEARS; y++) {
+    const prod = prodYr1 * Math.pow(1 - DEGR, y - 1);
+    const save = Math.min(prod, usageYr) * rate;
+    const prev = cum; cum += save;
+    if (payback === null && save > 0 && cum >= net) payback = (y - 1) + (net - prev) / save;
+    cumSeries.push(cum);
+  }
+  return { autoKw, sysKw, prodYr1, usageYr, gross, net,
+    saveYr1, saveMo: saveYr1 / 12, payback, net25: cum - net, cumSeries };
+}
+const fmt$ = n => '$' + Math.round(n).toLocaleString('en-US');
+
+// ================= UI wiring =================
+const $ = id => document.getElementById(id);
+let kwDirty = false;
+const stateSel = $('state');
+Object.entries(STATES).filter(([k])=>k.length===2).sort((a,b)=>a[1].name<b[1].name?-1:1)
+  .forEach(([code,s]) => { const o=document.createElement('option'); o.value=code; o.textContent=s.name; stateSel.appendChild(o); });
+const stParam = new URLSearchParams(location.search).get('st');
+stateSel.value = (stParam && STATES[stParam.toUpperCase()]) ? stParam.toUpperCase() : 'CA';
+
+function stateChanged() {
+  const s = STATES[stateSel.value];
+  $('rate').value = s.rate.toFixed(2);
+  $('cpw').value = s.cpw.toFixed(2);
+  $('cpwNote').textContent = (s.cpwNatl ? 'National average (no state data) — EnergySage, Jul 2026.' : 'Your state’s average — EnergySage marketplace, Jul 2026.') + ' Edit to match your quote.';
+  $('stateNote').textContent = 'Residential rate ' + s.rate.toFixed(2) + '¢/kWh (EIA May 2026) · solar resource ' + s.tilt + ' kWh/m²/day at tilt (NLR)';
+  kwDirty = false;
+  render(true);
+}
+
+function computeIncentiveDefault(gross) {
+  const s = STATES[stateSel.value];
+  if (!s.inc) return { amt: 0, label: null };
+  const i = s.inc;
+  let amt = i.pct ? Math.min(gross * i.pct / 100, i.cap || Infinity) : (i.amt || 0);
+  return { amt: Math.round(amt), label: i.name, url: i.url };
+}
+
+function render(reset) {
+  const s = STATES[stateSel.value];
+  const bill = +$('bill').value;
+  $('billVal').textContent = '$' + bill;
+  const rate = +$('rate').value / 100;
+  const cpw = +$('cpw').value;
+  // pass 1: autosize + default incentive
+  const pre = solarCalc({ bill, rate, tilt: s.tilt, cpw, kw: kwDirty ? +$('kw').value : 0, incentive: 0 });
+  if (!kwDirty) $('kw').value = pre.sysKw;
+  $('kwVal').textContent = (+$('kw').value).toFixed(1) + ' kW' + (kwDirty ? '' : ' (auto)');
+  if (reset) {
+    const d = computeIncentiveDefault(pre.gross);
+    $('incentive').value = d.amt;
+    $('incNote').innerHTML = d.label
+      ? 'Auto-filled: ' + d.label + ' — <a href="' + d.url + '" target="_blank" rel="noopener">official source</a>. Editable.'
+      : 'No statewide credit/rebate verified for ' + s.name + ' — check your utility. Editable.';
+  }
+  const incentive = +$('incentive').value;
+  const r = solarCalc({ bill, rate, tilt: s.tilt, cpw, kw: +$('kw').value, incentive });
+  // headline
+  $('maxPrice').textContent = fmt$(r.net25);
+  $('verdictText').innerHTML = r.payback
+    ? 'Payback in <b>' + r.payback.toFixed(1) + ' years</b> · then ≈ ' + fmt$(r.saveYr1) + '/yr keeps coming'
+    : (r.saveYr1 > 0 ? 'Savings accrue, but cost isn’t recovered within 25 years at these inputs' : 'Enter a monthly bill to see savings');
+  drawPayback(r);
+  drawBills(bill, r);
+  drawStack(r, incentive);
+  return r;
+}
+
+// ---- charts (hand-built SVG, no dependencies) ----
+function drawPayback(r) {
+  const W=480,H=260,L=52,B=224,T=16,R=468;
+  const maxY = Math.max(r.cumSeries[YEARS-1], r.net) * 1.08 || 1;
+  const x = y => L + (R-L) * (y / YEARS);
+  const yy = v => B - (B-T) * (v / maxY);
+  let area = 'M' + L + ',' + B, line = '';
+  r.cumSeries.forEach((v,i)=>{ const px=x(i+1), py=yy(v); area += ' L'+px+','+py; line += (i? ' L':'M')+px+','+py; });
+  area += ' L' + x(YEARS) + ',' + B + ' Z';
+  const netY = yy(r.net);
+  let cross = '';
+  if (r.payback) {
+    const cx = x(r.payback);
+    cross = '<circle cx="'+cx+'" cy="'+netY+'" r="6" fill="#F6A81C" stroke="#fff" stroke-width="2"/>' +
+      '<text x="'+Math.min(Math.max(cx+10,120),340)+'" y="'+Math.min(netY+26,238)+'" font-size="13" font-weight="700" fill="#E08E00" font-family="Outfit,sans-serif">payback: '+r.payback.toFixed(1)+' yrs</text>';
+  }
+  const ticks = [5,10,15,20,25].map(t=>'<text x="'+x(t)+'" y="246" font-size="11" fill="#8A93A3" text-anchor="middle">'+t+'y</text>').join('');
+  $('paybackChart').innerHTML =
+    '<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0EA5E9" stop-opacity=".55"/><stop offset="1" stop-color="#0EA5E9" stop-opacity=".06"/></linearGradient></defs>' +
+    '<path d="'+area+'" fill="url(#ag)"/><path d="'+line+'" fill="none" stroke="#0B76B8" stroke-width="3" stroke-linejoin="round"/>' +
+    '<line x1="'+L+'" y1="'+netY+'" x2="'+R+'" y2="'+netY+'" stroke="#E08E00" stroke-width="2" stroke-dasharray="6 5"/>' +
+    '<text x="'+(L+4)+'" y="'+(netY-8)+'" font-size="12" fill="#E08E00" font-family="Outfit,sans-serif" font-weight="700">system cost '+fmt$(r.net)+'</text>' +
+    cross + ticks +
+    '<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="#DDE9F2"/>' +
+    '<text x="'+L+'" y="'+(T+2)+'" font-size="11" fill="#8A93A3">cumulative savings '+fmt$(r.cumSeries[YEARS-1])+'</text>';
+}
+function drawBills(bill, r) {
+  const after = Math.max(0, bill - r.saveMo);
+  const W=480,H=260,B=210,maxV=Math.max(bill,1);
+  const bh = v => Math.max(4,(B-40) * (v/maxV));
+  const bar = (x,v,color,lbl,sub)=>{
+    const h=bh(v);
+    return '<rect x="'+x+'" y="'+(B-h)+'" width="120" height="'+h+'" rx="10" fill="'+color+'"/>'+
+      '<text x="'+(x+60)+'" y="'+(B-h-12)+'" text-anchor="middle" font-size="20" font-weight="800" font-family="Outfit,sans-serif" fill="#20242B">$'+Math.round(v)+'</text>'+
+      '<text x="'+(x+60)+'" y="'+(B+24)+'" text-anchor="middle" font-size="13" fill="#4A5160">'+lbl+'</text>';
+  };
+  $('billChart').innerHTML = bar(90, bill, '#9AA3B2', 'before solar') + bar(280, after, '#F6A81C', 'after solar') +
+    '<line x1="40" y1="'+B+'" x2="440" y2="'+B+'" stroke="#DDE9F2"/>' +
+    '<text x="240" y="252" text-anchor="middle" font-size="12" fill="#0B76B8" font-weight="600">≈ $'+Math.round(r.saveMo)+'/month stays in your pocket</text>';
+}
+function drawStack(r, incentive) {
+  const s = STATES[stateSel.value];
+  const d = computeIncentiveDefault(r.gross);
+  const fedRow = '<tr class="dead"><td>Federal 30% credit (§25D) <em>ended 12/31/2025 — IRS</em></td><td>−' + fmt$(r.gross*0.30) + '</td></tr>';
+  const incRow = incentive > 0
+    ? '<tr><td>' + (d.label && incentive===d.amt ? d.label : 'State & utility incentives (your entry)') + '</td><td>−' + fmt$(incentive) + '</td></tr>'
+    : '<tr><td>State & utility incentives — none verified for ' + s.name + '</td><td>−$0</td></tr>';
+  $('stackTable').innerHTML =
+    '<tr><td>Gross system cost (' + (+$('kw').value).toFixed(1) + ' kW × $' + (+$('cpw').value).toFixed(2) + '/W)</td><td>' + fmt$(r.gross) + '</td></tr>' +
+    fedRow + incRow +
+    '<tr class="net"><td><b>Your net cost</b></td><td>' + fmt$(r.net) + '</td></tr>';
+  $('stackSrc').innerHTML = 'The struck-through federal line is what outdated calculators still subtract. ' +
+    (d.label ? 'State incentive: <a href="'+d.url+'" target="_blank" rel="noopener">official source</a>. ' : '') +
+    'Leased/PPA systems may still benefit via the provider’s business credit — ask the provider.';
+}
+
+// events
+['bill','kw','cpw','rate','incentive'].forEach(id => $(id).addEventListener('input', e => { if (id==='kw') kwDirty = true; render(false); }));
+stateSel.addEventListener('change', stateChanged);
+$('autosizeBtn').addEventListener('click', () => { kwDirty = false; render(true); });
+let calcTracked = false;
+$('calcBtn').addEventListener('click', () => { render(true); track('calculate'); });
+document.addEventListener('input', () => { if (!calcTracked) { calcTracked = true; track('calculate'); } }, { once: false, capture: true });
+
+// --- Lead capture (posts to CONFIG.espEndpoint when set) ---
+$('captureForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = $('emailCapture').value;
+  const btn = $('captureBtn');
+  if (!email) return;
+  const done = () => { btn.textContent = 'Sent ✓'; btn.disabled = true; $('emailCapture').disabled = true; track('email_capture'); };
+  if (CONFIG.espEndpoint) {
+    const body = new URLSearchParams({ 'fields[email]': email, 'ml-submit': '1', 'anticsrf': 'true' });
+    fetch(CONFIG.espEndpoint, { method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'}, body })
+      .then(done).catch(() => { btn.textContent = 'Try again'; btn.disabled = false; });
+  } else { console.log('[lead-capture stub] set CONFIG.espEndpoint. Email:', email); done(); }
+});
+// --- Tripwire + upsell ---
+if (CONFIG.tripwireCheckoutUrl) {
+  const t = $('tripwireLink'); t.href = CONFIG.tripwireCheckoutUrl; t.target = '_blank';
+  t.addEventListener('click', () => track('tripwire_click', { value: 27, currency: 'USD' }));
+} else {
+  $('tripwireLink').addEventListener('click', e => { e.preventDefault(); alert('Coming very soon.'); });
+}
+if (CONFIG.upsellCheckoutUrl) {
+  const u = $('upsellLink'); u.href = CONFIG.upsellCheckoutUrl; u.target = '_blank';
+  u.addEventListener('click', () => track('upsell_click', { value: 97, currency: 'USD' }));
+} else if ($('upsellNote')) { $('upsellNote').style.display = 'none'; }
+// --- Affiliate ---
+if (CONFIG.affiliateUrl) $('affiliateLink').href = CONFIG.affiliateUrl;
+else $('affiliateBox').style.display = 'none';
+// --- hero image resilience (retry once on CDN hiccup) ---
+document.querySelector('header img.bg').addEventListener('error', function(){ if(!this.dataset.r){ this.dataset.r=1; this.src='hero.jpg?r=1'; } });
+
+stateChanged();
+</script>
+</body>
+</html>
