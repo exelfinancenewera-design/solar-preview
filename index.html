@@ -499,7 +499,15 @@ if (CONFIG.tripwireCheckoutUrl) {
   const t = $('tripwireLink'); t.href = CONFIG.tripwireCheckoutUrl; t.target = '_blank';
   t.addEventListener('click', () => track('tripwire_click', { value: 27, currency: 'USD' }));
 } else {
-  $('tripwireLink').addEventListener('click', e => { e.preventDefault(); alert('Coming very soon.'); });
+  $('tripwireLink').addEventListener('click', e => {
+    e.preventDefault();
+    const t = $('tripwireLink');
+    t.textContent = 'Launching soon — get first access ↓';
+    t.style.background = '#EAF6FD'; t.style.color = '#0B76B8';
+    document.getElementById('capture-sec').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    $('emailCapture').focus({ preventScroll: true });
+    track('tripwire_click', { value: 27, currency: 'USD', stub: true });
+  });
 }
 if (CONFIG.upsellCheckoutUrl) {
   const u = $('upsellLink'); u.href = CONFIG.upsellCheckoutUrl; u.target = '_blank';
